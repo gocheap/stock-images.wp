@@ -8,8 +8,10 @@ class stockimages
 		$this->whoami=$whoami;
 		
 		add_shortcode('stockimage', array($this, '_shortcode_stockimage'));
+		
 		add_action('admin_init', array($this, '_settings_api_init'));
 		add_action('plugin_row_meta', array($this, '_plugin_row_meta'), 10, 2);
+		
 		register_activation_hook($whoami, array($this, 'activate'));
 		register_deactivation_hook($whoami, array($this, 'deactivate'));
 		register_uninstall_hook($whoami, array(__CLASS__, 'uninstall'));

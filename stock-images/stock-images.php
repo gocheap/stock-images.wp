@@ -13,3 +13,7 @@ require_once('classes/class.stockimages.inc.php');
 
 $stockimages = new stockimages();
 $stockimages->init(basename(dirname(__FILE__)).'/'.basename(__FILE__));
+
+/**
+ * Stock Image URL is setup in WP-Admin > Settings > General
+ */
