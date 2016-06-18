@@ -1,8 +1,12 @@
 <?php
-class stockimages
+class stock_images
 {
 	private $whoami = null;
-	public $stockimage_api = 'http://www.example.com/stockimage/%s';
+
+	/**
+	 * @see https://github.com/bimalpoudel/stock-images/tree/master/server
+	 */
+	public $stock_images_api = 'http://www.example.com/stock-images/%s';
 
 	public function init($whoami) {
 		$this->whoami=$whoami;
@@ -16,10 +20,10 @@ class stockimages
 		register_deactivation_hook($whoami, array($this, 'deactivate'));
 		register_uninstall_hook($whoami, array(__CLASS__, 'uninstall'));
 		
-		$stockimage_api_customized = get_option('stockimage_api');
-		if($stockimage_api_customized)
+		$stock_images_api = get_option('stock_images_api');
+		if($stock_images_api)
 		{
-			$this->stockimage_api = $stockimage_api_customized;
+			$this->stock_images_api = $stock_images_api;
 		}
 	}
 
@@ -33,7 +37,7 @@ class stockimages
 			'name' => 'default.jpg',
 		), $atts));
 
-		$src = sprintf($this->stockimage_api, $name);
+		$src = sprintf($this->stock_images_api, $name);
 		return "<img src='{$src}' width='{$width}' height='{$height}'>";
 	}
 	
@@ -49,14 +53,14 @@ class stockimages
 		);
 
 		add_settings_field(
-			'stockimage_api',
+			'stock_images_api',
 			'Stock Image URL',
 			array($this, '_settings_section_field_callback_function'),
 			$section,
 			'stockimage_settings_section'
 		);
 
-		register_setting($section, 'stockimage_api');
+		register_setting($section, 'stock_images_api');
 	}
 
 	/**
@@ -64,19 +68,20 @@ class stockimages
 	 */
 	public function _settings_section_callback_function()
 	{
-		$example = get_site_url().'/stockimage/%s';
-		echo "<p>Where is your stock image?</p><p>eg: {$example} | end with %s</p>";
+		$example = get_site_url().'/stock-images/%s';
+		echo "<p>Where are your stock images (URL)?</p>
+		<p>eg: {$example} | end with %s</p>";
 	}
 	
 	public function _settings_section_field_callback_function()
 	{
-		$stockimage_api_customized = get_option('stockimage_api');
-		if(!$stockimage_api_customized)
+		$stock_images_api = get_option('stock_images_api');
+		if(!$stock_images_api)
 		{
-			$example = get_site_url().'/stockimage/%s';
-			$stockimage_api_customized = $example;
+			$example = get_site_url().'/stock-images/%s';
+			$stock_images_api = $example;
 		}
-		echo '<input name="stockimage_api" id="stockimage_api" type="text" value="'.addslashes($stockimage_api_customized).'" class="regular-text code" /> Be careful!';
+		echo '<input name="stock_images_api" id="stock_images_api" type="text" value="'.addslashes($stock_images_api).'" class="regular-text code" /> Be careful!';
 	}
 	
 	public function _plugin_row_meta($links, $file) {
@@ -84,7 +89,7 @@ class stockimages
 		if($file == $this->whoami)
 		{
 			$new_links = array(
-				'stockimage_api' => '<strong>Stock Image URL</strong>: '.get_option('stockimage_api'),
+				'stock_images_api' => '<strong>Stock Image URL</strong>: '.get_option('stock_images_api'),
 			);
 			
 			$links = array_merge( $links, $new_links );
@@ -95,19 +100,19 @@ class stockimages
 	
 	public function activate()
 	{
-		add_option('stockimage_api', get_site_url().'/stockimage/%s');
+		add_option('stock_images_api', get_site_url().'/stock-images/%s');
 	}
 	
 	public function deactivate()
 	{
-		$option_name = 'stockimage_api';
+		$option_name = 'stock_images_api';
 		delete_option( $option_name );
 		delete_site_option( $option_name );
 	}
 	
 	public static function uninstall()
 	{
-		$option_name = 'stockimage_api';
+		$option_name = 'stock_images_api';
 		delete_option( $option_name );
 		delete_site_option( $option_name );
 	}

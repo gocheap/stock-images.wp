@@ -10,7 +10,7 @@ License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 
-Hosted stock images and photography collection.
+Hosted stock images and photography linker.
 
 
 == Description ==
@@ -18,9 +18,19 @@ Hosted stock images and photography collection.
 Import photos and images from your personally hosted stock images.
 
 Adds a shortcode to access your images.
-`[stockimage width="450" height="300" name="default.jpg"]`
+`[stockimage width="450" height="300" name="my-photo.jpg"]`
 
-After installation, edit the URL of your stock image repository at: Settings > General > Stock Image URL. All your photos can be pointed from your configured url.
+After installation, edit the URL of your stock image repository at:
+Settings > General > Stock Image URL.
+
+All your photos can be pointed from your configured url.
+
+For example, if you put http://www.example.com/stock-images/%s as your URL,
+your photos will be accessed as http://www.example.com/stock-images/my-photo.jpg
+You can drop photos inside stock-images/ path via FTP or similar.
+
+It can be a very creative replacement of your media library, and works better if you are describing a product or something else. You will have a total control of images to be served.
+
 
 == Installation ==
 
@@ -51,18 +61,36 @@ Click on [how to install a WordPress Plugin](http://goo.gl/Ims8pt) for more deta
 
 == Frequently Asked Questions ==
 
-= Can I put my photos in multiple directories? =
+= I have images of multiple dimensions. How can I classify them? =
 
+You can put them in multiple sub-directories.
 Yes. Just update your file name after your base url.
 eg. `[stockimage name='sub-directory/image-name.jpg']`
 
+You can use this trick to classify banners, logos, icons or full sized images.
 
-= Are my photos safe? =
+= How can I protect my images? =
+
+This plugin is to consume your hosted images. Providing safety to your hosted images is beyond the scope of the plugin. However, you can use .htaccess and index.php files to prevent directly listing and hot-linking to your images.
+
+
+= How can I setup my hosted server? =
 
 Actual hosting of your photography is not the scope of this plugin.
-You can upload your photos anywhere accessible via web.
-Protect hotlinking on your photos and disable directory listing for safety.
+But you should upload your photos anywhere accessible via web.
+You can use Dropbox or FTP like tools to upload your file on your server.
 
+Consult with your hosting provider regarding:
+
+ - How to upload your files
+ - Bandwidth you are using
+
+
+= Can I upload raw images from my camera? =
+
+Not recommended due to file size and bandwidth.
+Rather make suitable thumbnails or at least optimize your images.
+Your website should always have least possible content output.
 
 == Screenshots ==
 
