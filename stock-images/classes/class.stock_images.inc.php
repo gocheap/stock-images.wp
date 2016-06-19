@@ -90,6 +90,7 @@ class stock_images
 		{
 			$new_links = array(
 				'stock_images_api' => '<strong>Stock Image URL</strong>: '.get_option('stock_images_api'),
+				'setting-server' => '<a href="https://github.com/bimalpoudel/stock-images/tree/master/server">Setting up a Server</a>',
 			);
 			
 			$links = array_merge($links, $new_links);
