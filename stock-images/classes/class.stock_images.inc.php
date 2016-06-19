@@ -4,6 +4,7 @@ class stock_images
 	private $whoami = null;
 
 	/**
+	 * Where did you host your stock images?
 	 * @see https://github.com/bimalpoudel/stock-images/tree/master/server
 	 */
 	public $stock_images_api = 'http://www.example.com/stock-images/%s';
@@ -68,7 +69,7 @@ class stock_images
 	 */
 	public function _settings_section_callback_function()
 	{
-		$example = get_site_url().'/stock-images/%s';
+		$example = $this->_sample_stock_image_api_url();
 		echo "<p>Where are your stock images (URL)?</p>
 		<p>eg: {$example} | end with %s</p>";
 	}
@@ -78,8 +79,7 @@ class stock_images
 		$stock_images_api = get_option('stock_images_api');
 		if(!$stock_images_api)
 		{
-			$example = get_site_url().'/stock-images/%s';
-			$stock_images_api = $example;
+			$stock_images_api = $this->_sample_stock_image_api_url();
 		}
 		echo '<input name="stock_images_api" id="stock_images_api" type="text" value="'.addslashes($stock_images_api).'" class="regular-text code" /> Be careful!';
 	}
@@ -92,7 +92,7 @@ class stock_images
 				'stock_images_api' => '<strong>Stock Image URL</strong>: '.get_option('stock_images_api'),
 			);
 			
-			$links = array_merge( $links, $new_links );
+			$links = array_merge($links, $new_links);
 		}
 		
 		return $links;
@@ -100,7 +100,7 @@ class stock_images
 	
 	public function activate()
 	{
-		add_option('stock_images_api', get_site_url().'/stock-images/%s');
+		add_option('stock_images_api', $this->_sample_stock_image_api_url());
 	}
 	
 	public function deactivate()
@@ -115,5 +115,11 @@ class stock_images
 		$option_name = 'stock_images_api';
 		delete_option( $option_name );
 		delete_site_option( $option_name );
+	}
+	
+	private function _sample_stock_image_api_url()
+	{
+		$sample_stock_image_api_url = get_site_url().'/stock-images/%s?rand=%s';
+		return $sample_stock_image_api_url;
 	}
 }

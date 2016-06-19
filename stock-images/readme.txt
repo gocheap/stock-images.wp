@@ -25,11 +25,20 @@ Settings > General > Stock Image URL.
 
 All your photos can be pointed from your configured url.
 
-For example, if you put http://www.example.com/stock-images/%s as your URL,
-your photos will be accessed as http://www.example.com/stock-images/my-photo.jpg
+For example, if you pointed to http://www.example.com/stock-images/%s as your URL,
+your photos will be accessed as http://www.example.com/stock-images/my-photo.jpg in the above example.
 You can drop photos inside stock-images/ path via FTP or similar.
 
 It can be a very creative replacement of your media library, and works better if you are describing a product or something else. You will have a total control of images to be served.
+
+
+= Setting up a basic stock image hosting =
+
+Create a folder named stock-images inside your FTP account which is accessible from your website. Drop in all your optimized images there. Stop directory listing with an empty index.php file. Optionally configure .htaccess for direct/hot-linking into your images from unauthorised websites or direct image downloaders.
+
+Configure your URL to point into this folder.
+
+Then the pattern `[stockimage width="450" height="300" name="my-photo.jpg"]` will point to your specific image as `<img src='http://www.example.com/stock-images/my-photo.jpg' width='450' height='300'>`.
 
 
 == Installation ==
